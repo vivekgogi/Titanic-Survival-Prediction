@@ -14,7 +14,7 @@ model = pickle.load(open('rf_clf_titanic.pkl', 'rb'))
 def main():
     st.title("Titanic Survival Prediction")
     st.markdown(
-        "Enter the passenger details to predict survival on the Titanic.")
+        "Enter the pasenger details to predict survival on the Titanic.")
 
     # Create input fields for passenger details
     st.header("Passenger Details")
@@ -130,8 +130,10 @@ def main():
             st.error("Please fill in all the required fields.")
         if not df.empty and not df.isnull().values.any():
             prediction = model.predict(df)
-            survival = "SURVIVED" if prediction[0] == 1 else "NOT SURVIVED"
-            st.success(f"The passenger is predicted to have {survival}.")
+            if prediction[0] == 1:
+                st.success(f"The passenger is predicted to have SURVIVED.")
+            else:
+                st.error(f"The passenger is predicted to have NOT SURVIVED.")
         else:
             st.error("Please fill in all the required fields.")
 
